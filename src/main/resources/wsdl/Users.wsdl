@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://tutoriales.cdae.uci.cu/Users/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Users" targetNamespace="http://tutoriales.cdae.uci.cu/Users/">
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://tutoriales.cdae.uci.cu/Users/">
+            <xsd:element name="listUsers" type="xsd:string">
+
+            </xsd:element>
+            <xsd:element name="listUsersResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="usuarios" type="tns:User" maxOccurs="unbounded" minOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getUserbyID">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:int"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getUserbyIDResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="usuario" type="tns:User"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="User">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:int"></xsd:element>
+                    <xsd:element name="name" type="xsd:string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="listUsersRequest">
+
+    </wsdl:message>
+    <wsdl:message name="listUsersResponse">
+        <wsdl:part element="tns:listUsersResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="getUserbyIDRequest">
+        <wsdl:part name="parameters" element="tns:getUserbyID"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getUserbyIDResponse">
+        <wsdl:part name="parameters" element="tns:getUserbyIDResponse"></wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="Users">
+        <wsdl:operation name="listUsers">
+            <wsdl:input message="tns:listUsersRequest"/>
+            <wsdl:output message="tns:listUsersResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getUserbyID">
+            <wsdl:input message="tns:getUserbyIDRequest"></wsdl:input>
+            <wsdl:output message="tns:getUserbyIDResponse"></wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="UsersSOAP" type="tns:Users">
+        <soap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="listUsers">
+            <soap:operation
+                    soapAction="http://tutoriales.cdae.uci.cu/Users/listUsers" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getUserbyID">
+            <soap:operation
+                    soapAction="http://tutoriales.cdae.uci.cu/Users/getUserbyID" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="Users">
+        <wsdl:port binding="tns:UsersSOAP" name="UsersSOAP">
+            <soap:address location="http://www.example.org/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
